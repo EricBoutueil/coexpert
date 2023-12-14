@@ -1,0 +1,26 @@
+PyTorch Installation
+GPU-acceleration on the new M1 chips is a new feature for PyTorch. For this, we need PyTorch v1.12 or later, as of 3rd June 2022 this is only available via the PyTorch nightly release.
+
+pip install -U --pre torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/cpu
+
+------------
+
+Hugging Face Installation
+The Transformers library uses another Hugging Face package called Tokenizers. Tokenizers requires Rust, because we’re using an ARM64 environment we will likely see ERROR: Failed building wheel for tokenizers during the install for these packages.
+To avoid this, we install Rust.
+
+curl — proto ‘=https’ — tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+Now we can => pip install transformers
+
+------------
+
+Sentence Transformers Installation
+Our final step is installing the Sentence Transformers library, again there are some additional steps we must take to get this working on M1.
+Sentence transformers has a sentencepiece depency, if we try to install this package we will see ERROR: Failed building wheel for sentencepiece. 
+
+To fix this we need:
+brew install cmake
+brew install pkg-config
+
+Now we're ready to => pip install sentence-transformers
